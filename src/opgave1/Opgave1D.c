@@ -3,24 +3,27 @@
 #include <time.h>
 #include "Kort.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char ** argv) {
   
   srand(time(NULL));
-
+  
   int result = 0;
-  int pull = 0;
+  int pull = -1;
 
-  while(result <= 21 && scanf("%d", &pull)) {
+  do {
     if(pull == 0) {
-      break;
+      break; 
     }
-    int next = traekEtKort();
-    printf("Du trak %d\n", next);
-    result += next;
+    int card = traekEtKort();
+    printf("Du trak %d\n", card);
+    result += card;
     printf("Din værdi %d\n", result);
-    if(result > 21) {
-      printf("Du har tabt!\n");
+    if(result <= 21) {
+      printf("Vil du trække et kort? ");
+    } else {
+      printf("Du har tabt!");
     }
-  }
+  } while(result <= 21 && scanf("%d", &pull));
+
   return 0;
 }
