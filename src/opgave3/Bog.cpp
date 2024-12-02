@@ -2,8 +2,11 @@
 #include <iostream>
 using namespace std;
 
-Bog::Bog(string titel, string forfatter, string ISBN, int sider) : titel_(titel), forfatter_(forfatter), antalSider_(sider) { 
+Bog::Bog(string titel, string forfatter, string ISBN, int sider) { 
+  setTitel(titel);
   setISBN(ISBN);
+  setForfatter(forfatter);
+  setAntalSider(sider);
 }
 
 void Bog::setTitel(string titel)
@@ -28,20 +31,19 @@ string Bog::getForfatter() const
 
 void Bog::setISBN(string isbn)
 {
-  bool valid = true;
+  if(isbn.length() != 13) {
+    ISBN_ = "1234567890123";
+    return;
+  }
+
   for(int i = 0; i < isbn.length(); i++) {
     char current = isbn[i];
     if(current < '0' || current > '9') {
-      valid = false;
-      break;
+      ISBN_ = "1234567890123";
+      return;
     }
   }
-
-  if(isbn.length() == 13 && valid) {
-    ISBN_ = isbn;
-  } else {
-    ISBN_ = "1234567890123";
-  }
+  ISBN_ = isbn;
 }
 
 string Bog::getISBN() const
